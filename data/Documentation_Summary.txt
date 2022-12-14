@@ -1,0 +1,277 @@
+Author: Giancarlos Dominguez
+
+This text file is a summary of variables around in the csv datasets. Further eloboration on variables can be found in the full documentation
+Here: http://scdb.wustl.edu/documentation.php?var=intro
+
+caseID: First of four unique IDs
+ - XXXX-YYY
+    - XXXX: Term Year
+    - YYY: Case number within term
+
+docketID: Second of four unique IDs
+- XXXX-YYY-ZZ
+    - XXXX: Term Year
+    - YYY: Case number within term
+    - ZZ: Number of dockets consolidated under the U.S Reports Citation
+
+caseIssuesID: Third of four unique IDs
+- XXXX-YYY-ZZ-AA
+    - XXXX: Term Year
+    - YYY: Case number within term
+    - ZZ: Number of dockets solicited under the U.S Reports Citation
+    - AA: Number of issues and legal provisions within caseID
+
+voteID: Fourth of four unique IDs
+- XXXX-YYY-AA-BB-CC-DD
+    - XXXX: Term Year
+    - YYY: Case number within term
+    - AA: Number of dockets consolidated under the U.S Reports Citation
+    - BB: Number of issues and legal prvisions within case
+    - CC: Indicates whether vote was one or split within a issue or legal provision
+    - DD: Represents vote within case (Range: 01-09; Can be fewer is less than all justices participated)
+
+dateDecision: Date the case was decided
+- XX/YY/ZZZZ
+    - XX: Month
+    - YY: Day:
+    - ZZ: Year
+
+decisionType: Defines type of decision case ended within
+- 1: Decided by a signed opinion. Heard oral arguments
+- 2: Decided by an opinion by with no oral arguments
+- 4: Decided by a decree. Usually occurs under Court's original jurisdiction and when state boundary disputes are involved.
+- 5: Decided by an equally divided vote. Occurs when a justice does not participate or has a vacancy
+- 6: Decided by an unsigned opinion, instead signed "per curiam". Heard oral arguments
+- 7: Judgement of the Court. Less than majority of participating justices agree with opinion prdocued by assigned justice.
+
+usCite: Citation from the US Reports
+
+sctCite: Citation from the Supreme Court Reporter
+
+ledCite: Citation from the Laywer's Edition of the US Reports
+
+lexisCite: Citation from the legal service software LEXIS
+
+term: term in which the case desicion was handed down
+- XXXX: Term Year
+
+naturalCourt: Values that represent a time period for the Court
+Specific values and meaning can be found here: http://scdb.wustl.edu/documentation.php?var=naturalCourt
+
+chief: Name of chief justice during the term
+
+docket: Docket number that the Supreme Court has assigned to the case
+
+caseName: Name of case
+
+dateArgument: date in which the case was orally argued before the Supreme Court
+- XX/YY/ZZZZ
+    - XX: Month
+    - YY: Day
+    - ZZZZ: Year
+
+dataRearg: date in which the Suprme Court requested another oral argument
+- XX/YY/ZZZZ
+    - XX: Month
+    - YY: Day
+    - ZZZZ: Year
+
+petitioner & respondent: value that represents who requested the Supreme Court to review the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=petitioner
+
+petitionerState & respondentState: value that represents a state if petitioner/respondent is a state
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=petitionerState
+
+jurisdiction: value that represents a legal process in which the Supreme Court can review a case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=jurisdiction
+
+adminAction: value that represents an administrative agency taking some sort of action before the onset of litigation
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=adminAction
+
+adminActionState: value that represents the state from which the administrative action originates
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=adminActionState
+
+threeJudgeFdc: value that represents whether case was heard by a three-judge federal district court 
+- 0: No
+- 1: Yes
+
+caseOrigin: value that represents the court from which the case originated from
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=caseOrigin
+
+caseOriginState: value that represents the state of the state-level court from which the case originated from
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=caseOriginState
+
+caseSource: value that represents the court from which the Supreme Court reviewed the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=caseSource
+
+caseSourceState: value that represents state of the state-level court the Supreme Court reviewed the case from
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=caseSourceState
+
+lcDisagreement: value that represents whether members of the court from which the Supreme Court reviewed the case disagreeses with the Supreme Court's majority opinion for the case
+- 0: no mention of dissent
+- 1: dissented
+
+certReason: Value representing the reason why the Supreme Court granted petition for certiorari
+- 1: Case did not arise on cert or cert not granted
+- 2: Federal court conflict
+- 3: Federal court conflict and to resolve important or significant question
+- 4: Putative conflict
+- 5: Conflict between federal court and state court
+- 6: State court conflict
+- 7: Federal court confusion or uncertainty
+- 8: State court confusion or uncertainty
+- 9: Federal court and state court confusion or uncertainty
+- 10: To resolve important or significant question
+- 11: To resolve question presented
+- 12: No reason given
+- 13: Other reason
+
+lcDisposition: value that represents the treatment the Supreme Court showed towards the decision of the lower court
+- 1: Stay, petition, motion granted
+- 2: Affirmed
+- 3: Reversed
+- 4: Reversed and remanded
+- 5: Vacated and remanded
+- 6: Affirmed and reversed/vacated in part
+- 7: Affirmed and reversed/vacated in part and remanded
+- 8: Vacated
+- 9: Petition denied or appeal dismissed
+- 10: Modify
+- 11: Remand
+- 12: Unusual Disposition
+
+lcDispossionDirection: value that represents the political direction of the court whose decision the Supreme Court reviewed
+- 1: Conservative
+- 2: Liberal
+- 3: Unspecified
+
+declarationUncon: value that represents whether the Supreme Court declared a law, statute, provision, or act unconstitutional
+- 1: No declaration of unconstitutionality
+- 2: Act of Congress declared unconstitutional
+- 3: State/Territorial law, regulation, or provision declared unconstitutional
+- 4: Municipal or other local ordinance unconstitutional
+
+caseDisposition: value that represents the treatment the Supreme Court showed towards the decision of the court 
+- 1: Stay, petition, motion granted
+- 2: Affirmed (includes modified)
+- 3: Reversed
+- 4: Reversed and remanded
+- 5: Vacated and remanded
+- 6: Affirmed and reversed/vacated in part
+- 7: Affirmed and reversed/vacated in part and remanded
+- 8: Vacated
+- 9: Petition denied or appeal dismissed
+- 10: Cetification to/from a lower court
+- 11: No disposition
+
+caseDispositionUnusual: value that indicates whether the Supreme Court made an unusual disposition for the case
+- 0: No unusual disposition occured
+- 1: Unusual disposition occured
+
+partyWinning: value indicates if petitioning party won the case
+    - Petitioning party lost if caseDisposition == 2, 9
+    - Petitioning party won if caseDisposition == 3, 4, 5, 6, 7, 8
+
+- 0: Petitioning party lost or received unfavorable disposition
+- 1: Petititoning party won or received favorable disposition
+- 2: Favoriable disposition for petitioning party unclear
+
+precendentAlteration: value indicates whether ruling for case overrules one or more of the Supreme Court's precedents
+- 0: No precedent alterated
+- 1: Precedent overruled
+
+voteUnclear: value incicates whether a justice within the case has not specified their vote for the majority opinion
+- 0: Vote clearly specified
+- 1: Vote not clear
+
+issue: value that specifies the issue at the heart of the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=issue
+
+issueArea: value indicates issue's broader category that is at the heart of the case
+Valie representations can be found here: http://scdb.wustl.edu/documentation.php?var=issueArea
+
+decisionDirection: value that represents how Supreme Court feels towards issue of case
+- 1: Conservative
+- 2: Liberal
+- 3: Unspecfied
+
+decisionDirectionDissent: value that indicates whether majority and minority support/oppose in the same direction
+- 0: Dissent goes opposing way
+- 1: Majority and dissent go same direction 
+
+authorityDecision1: value indicates which legal base that the Supreme Court rested its decisions on
+- 1: Juridical Review (National)
+- 2: Juricial Review (State)
+- 3: Supreme Cpurt supervision of lower federal/state courts or original jurisdiction
+- 4: Statutory construction
+- 5: Interpretation of administrative regulation, rule, executive order
+- 6: Diversity jurisdiction
+- 7: Federal common law
+
+authorityDecision2: value indicates a secondary legal base that the Supreme Court rests its decision on
+- 1: Juridical Review (National)
+- 2: Juricial Review (State)
+- 3: Supreme Cpurt supervision of lower federal/state courts or original jurisdiction
+- 4: Statutory construction
+- 5: Interpretation of administrative regulation, rule, executive order
+- 6: Diversity jurisdiction
+- 7: Federal common law
+
+lawType: value that represents the area that the constitutional provision, statute, or court rule resides in
+- 1: constitutiona
+- 2: Constitiutional Amendment
+- 3: Federal statute
+- 4: Court Rules
+- 5: Other
+- 6: Infrequently litigated statutes
+- 8: State/Local law/regulation
+- 9: No legal provision
+
+lawSupp: value representing the specific legal provision considered in the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=lawSupp
+
+lawMinor: string represting the specific legal provision infrequently considered in cases
+
+majOpinWriter: string stating the justice that wrote the majority opinion for the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=majOpinWriter
+
+majOpinAssigner: string stating the justice that assigned another justice to write the majority opinion on the case
+Value representations can be found here: http://scdb.wustl.edu/documentation.php?var=majOpinAssigner
+
+splitVote: value that represents whether vote variables pertain to vote on first or second issue/legal provision
+- 1: first vote issue/legal provision
+- 2: second vote on issue/legal provision
+
+majVotes: value representing how many justices voted in the majority
+
+minVotes: value representing how many justices voted in the dissent
+
+justice: value representing a unique ID for the justice
+
+justiceName: string representing the name of the justice
+
+vote: value indicates how justice voted in the case
+- 1: Voted with majority/plurality
+- 2: Dissent
+- 3: Regular occurence
+- 4: Special occurence
+- 5: Judgement of the Court
+- 6: Dissent from a denial/dismissal of certiorari, or dissent from summary affirmation of an appeal
+- 7: Jurisdictional dissent
+- 8: Justice participated in an equally divided vote
+
+opinion: value indicates whether justice wrote an opinion
+- 1: Justice wrote no opinion
+- 2: Justice wrote an opinion
+- 3: Justice co-authored an opinion
+
+direction: value indicates whether justice cast a liberal and conservative vote
+- 1: Conservative
+- 2: Liberal
+
+majority: value indicates whether justice voted with majority or minority
+- 1: dissent
+- 2: majority
+
+firstAgreement: value representing a justice ID whose justice wrote a dissent or concurrence opinion that the justice agrees with
+Value represenations can be found here: http://scdb.wustl.edu/documentation.php?var=firstAgreement
