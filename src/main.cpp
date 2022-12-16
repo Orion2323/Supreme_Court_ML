@@ -23,20 +23,20 @@ void read_case_file() {
     if (caseFS.is_open()) {
         cout << "Case file not found!" << endl;
         return;
-    } else {
-        
     }
 }
 
 // function for reading justice centered data file
 void read_justice_file() {
     ifstream inFS("../data/2022_01_justiceCentered_Citation.csv");
+    vector<vector<string>> data;
 
     // check if file was found
     if (!inFS.is_open()) {
         cout << "Justice file not found" << endl;
         return;
     } else {
+        // iterate until end of csv file
         while (!inFS.eof()) {
             string labels;
             string line;
@@ -45,6 +45,9 @@ void read_justice_file() {
             getline(inFS, line, '\n');
 
             stringstream inSS(line);
+
+            cout << line[395] << "  " << line[396] <<  " " << line[397] << endl;
+            cout << line.length() << endl;
 
             bool qfound = false;
             bool cfound = false;
@@ -82,16 +85,24 @@ void read_justice_file() {
                         if (j+1 < line.size() && line[j+1] != '\"') {
                             cfound = true;
                             start = j+1;
+                        } else if (j == line.size() - 1 && line[j+1] == '\"') {
+                            string aWord = line.substr(start,j-1);
+                            dataline.push_back(aWord);
                         }
                     } else if (j+1 < line.size() && line[j+1] != '\"') {
                         cfound = true;
                         start = j+1;
                     }
+                }  else if (line[j] == '\"' && j == line.length()-1) {
+                    string word = line.substr(start,j-1);
+                    dataline.push_back(word);
                 }
             }
 
             // print out justice and ID
-            cout << dataline[53] << " " << dataline[54] << endl;
+            //cout << dataline[53] << " " << dataline[54] << endl;
         }
     }
+
+    inFS.close();
 }
