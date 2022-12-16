@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -8,7 +11,7 @@ void read_case_file();
 void read_justice_file();
 
 int main() {
-    read_case_file();
+    //read_case_file();
     read_justice_file();
     return 0;
 }
@@ -27,169 +30,68 @@ void read_case_file() {
 
 // function for reading justice centered data file
 void read_justice_file() {
-    ifstream justiceFS("../data/2022_01_justiceCentered_Citation.csv");
+    ifstream inFS("../data/2022_01_justiceCentered_Citation.csv");
 
-    if (!justiceFS.is_open()) {
+    // check if file was found
+    if (!inFS.is_open()) {
         cout << "Justice file not found" << endl;
         return;
     } else {
-        //while (!justiceFS.eof()) {
-        for (int i = 0; i < 20; i++) {
-            string caseID;
-            string docketID;
-            string caseIssuesID;
-            string voteID;
+        while (!inFS.eof()) {
+            string labels;
+            string line;
 
-            string dateDecision;
-            string decisionType;
+            getline(inFS, labels, '\n');
+            getline(inFS, line, '\n');
 
-            string usCite;
-            string sctCite;
-            string ledCite;
-            string lexisCite;
+            stringstream inSS(line);
 
-            string term;
-            string naturalCourt;
-            string chief;
-            string docket;
+            bool qfound = false;
+            bool cfound = false;
 
-            string caseName;
-            string caseArgument;
-            string caseRearg;
-    
-            string petitioner;
-            string petitionerState;
-            string respondent;
-            string respondentState;
+            int start = 0;
+            int end = 0;
 
-            string jurisdiction;
-            string adminAction;
-            string adminActionState;
+            vector<string> dataline;
 
-            string threeJudgeFdc;
-            string caseOrigin;
-            string caseOriginState;
-            string caseSource;
-            string caseSourceState;
+            // iterate through line
+            for (int j = 0; j < line.size(); j++) {
+                // check if character is a quote
+                if (line[j] == '\"') {
+                    // check if starting or closing quote
+                    if (qfound) {
+                        end = j;
+                        qfound = false;
 
-            string lcDisagreement;
-            string certReason;
-            string lcDisposition;
-            string lcDispositionDirection;
-            string declarationUncon;
-            string caseDisposition;
-            string caseDispositionUnusual;
+                        string word = line.substr(start, end - start);
+                        dataline.push_back(word);
+                    } else {
+                        qfound = true;
+                        start = j+1;
+                    }
+                    // check if character is a comma and not in middle of quotes
+                } else if(line[j] == ',' && !qfound) {
+                    if (cfound) {
+                        end = j;
+                        cfound = false;
 
-            string partyWinning;
-            string precedentAlteration;
-            string voteUnclear;
+                        string word = line.substr(start, end - start);
+                        dataline.push_back(word);
 
-            string issue;
-            string issueArea;
+                        // check if ending quote is another starting quote
+                        if (j+1 < line.size() && line[j+1] != '\"') {
+                            cfound = true;
+                            start = j+1;
+                        }
+                    } else if (j+1 < line.size() && line[j+1] != '\"') {
+                        cfound = true;
+                        start = j+1;
+                    }
+                }
+            }
 
-            string decisionDirection;
-            string decisionDirectionDissent;
-
-            string authorityDecision1;
-            string authorityDecision2;
-
-            string lawType;
-            string lawSupp;
-            string lawMinor;
-
-            string majOpinWriter;
-            string majOpinAssigner;
-
-            string splitVote;
-            string majVotes;
-            string minVotes;
-
-            string justice;
-            string justiceName;
-            string vote;
-            string opinion;
-            string direction;
-            string majority;
-            string firstAgreement;
-            string secondAgreement;
-
-            string dummy;
-            getline(justiceFS, dummy, '\n');
-
-            getline(justiceFS, caseID, ',');
-            getline(justiceFS, docketID, ',');
-            getline(justiceFS, caseIssuesID, ',');
-            getline(justiceFS, voteID, ',');
-
-            getline(justiceFS, dateDecision, ',');
-            getline(justiceFS, decisionType, ',');
-
-            getline(justiceFS, usCite, ',');
-            getline(justiceFS, sctCite, ',');
-            getline(justiceFS, ledCite, ',');
-            getline(justiceFS, lexisCite, ',');
-
-            getline(justiceFS, term, ',');
-            getline(justiceFS, naturalCourt, ',');
-            getline(justiceFS, chief, ',');
-            getline(justiceFS, docket, ',');
-
-            // ERROR: getline() not reading caseName correctly
-            getline(justiceFS, caseName, ',');
-            getline(justiceFS, caseArgument, ',');
-            getline(justiceFS, caseRearg, ',');
-
-            getline(justiceFS, petitioner, ',');
-            getline(justiceFS, petitionerState, ',');
-            getline(justiceFS, respondent, ',');
-            getline(justiceFS, respondentState, ',');
-
-
-            getline(justiceFS, jurisdiction, ',');
-            getline(justiceFS, adminAction, ',');
-            getline(justiceFS, adminActionState, ',');
-            getline(justiceFS, threeJudgeFdc, ',');
-
-            getline(justiceFS, caseOrigin, ',');
-            getline(justiceFS, caseOriginState, ',');
-            getline(justiceFS, caseSource, ',');
-            getline(justiceFS, caseSourceState, ',');
-
-            getline(justiceFS, lcDisagreement, ',');
-            getline(justiceFS, certReason, ',');
-            getline(justiceFS, lcDisposition, ',');
-            getline(justiceFS, lcDispositionDirection, ',');
-            getline(justiceFS, declarationUncon, ',');
-            getline(justiceFS, caseDisposition, ',');
-            getline(justiceFS, caseDispositionUnusual, ',');
-            getline(justiceFS, partyWinning, ',');
-            getline(justiceFS, precedentAlteration, ',');
-            getline(justiceFS, voteUnclear, ',');
-            getline(justiceFS, issue, ',');
-            getline(justiceFS, issueArea, ',');
-            getline(justiceFS, decisionDirection, ',');
-            getline(justiceFS, decisionDirectionDissent, ',');
-            getline(justiceFS, authorityDecision1, ',');
-            getline(justiceFS, authorityDecision2, ',');
-            getline(justiceFS, lawType, ',');
-            getline(justiceFS, lawSupp, ',');
-            getline(justiceFS, lawMinor, ',');
-            getline(justiceFS, majOpinWriter, ',');
-            getline(justiceFS, majOpinAssigner, ',');
-            getline(justiceFS, splitVote, ',');
-            getline(justiceFS, majVotes, ',');
-            getline(justiceFS, minVotes, ',');
-
-            getline(justiceFS, justice, ',');
-            getline(justiceFS, justiceName, ',');
-            getline(justiceFS, vote, ',');
-            getline(justiceFS, opinion, ',');
-            getline(justiceFS, direction, ',');
-            getline(justiceFS, majority, ',');
-            getline(justiceFS, firstAgreement, ',');
-            getline(justiceFS, secondAgreement, ',');
-
-            cout << justice << " " << justiceName << endl;
+            // print out justice and ID
+            cout << dataline[53] << " " << dataline[54] << endl;
         }
     }
 }
