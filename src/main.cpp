@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <algorithm>
-#include <vector>
 
 using namespace std;
 
@@ -29,78 +27,196 @@ void read_case_file() {
 // function for reading justice centered data file
 void read_justice_file() {
     ifstream inFS("../data/2022_01_justiceCentered_Citation.csv");
-    vector<vector<string>> data;
 
     // check if file was found
     if (!inFS.is_open()) {
         cout << "Justice file not found" << endl;
         return;
     } else {
+        string labels;
+        getline(inFS, labels, '\n');
+
         // iterate until end of csv file
         while (!inFS.eof()) {
-            string labels;
             string line;
-
-            getline(inFS, labels, '\n');
             getline(inFS, line, '\n');
 
             stringstream inSS(line);
 
-            cout << line[395] << "  " << line[396] <<  " " << line[397] << endl;
-            cout << line.length() << endl;
+            string caseID;
+            string docketID;
+            string caseIssueID;
+            string voterID;
 
-            bool qfound = false;
-            bool cfound = false;
+            string dateDecision;
+            string decisionType;
 
-            int start = 0;
-            int end = 0;
+            string usCite;
+            string sctCite;
+            string ledCite;
+            string lexisCite;
 
-            vector<string> dataline;
+            string term;
+            string naturalCourt;
+            string chief;
+            string docket;
 
-            // iterate through line
-            for (int j = 0; j < line.size(); j++) {
-                // check if character is a quote
-                if (line[j] == '\"') {
-                    // check if starting or closing quote
-                    if (qfound) {
-                        end = j;
-                        qfound = false;
+            string caseName;
+            string dateArgument;
+            string dateRearg;
 
-                        string word = line.substr(start, end - start);
-                        dataline.push_back(word);
-                    } else {
-                        qfound = true;
-                        start = j+1;
-                    }
-                    // check if character is a comma and not in middle of quotes
-                } else if(line[j] == ',' && !qfound) {
-                    if (cfound) {
-                        end = j;
-                        cfound = false;
+            string petitioner;
+            string petitionerState;
+            string respondent;
+            string respondentState;
 
-                        string word = line.substr(start, end - start);
-                        dataline.push_back(word);
+            string jurisdiction;
+            string adminAction;
+            string adminActionState;
 
-                        // check if ending quote is another starting quote
-                        if (j+1 < line.size() && line[j+1] != '\"') {
-                            cfound = true;
-                            start = j+1;
-                        } else if (j == line.size() - 1 && line[j+1] == '\"') {
-                            string aWord = line.substr(start,j-1);
-                            dataline.push_back(aWord);
-                        }
-                    } else if (j+1 < line.size() && line[j+1] != '\"') {
-                        cfound = true;
-                        start = j+1;
-                    }
-                }  else if (line[j] == '\"' && j == line.length()-1) {
-                    string word = line.substr(start,j-1);
-                    dataline.push_back(word);
-                }
+            string threeJudgeFdc;
+            string caseOrigin;
+            string caseOriginState;
+
+            string caseSource;
+            string caseSourceState;
+
+            string lcDisagreement;
+            string certReason;
+
+            string lcDisposition;
+            string lcDispositionDirection;
+            string declarationUncon;
+            string caseDisposition;
+            string caseDispositionUnusual;
+
+            string partyWinning;
+            string precedentAlteration;
+            string voteUnclear;
+
+            string issue;
+            string issueArea;
+
+            string decisionDirection;
+            string decisionDirectionDissent;
+            string authorityDecision1;
+            string authorityDecision2;
+
+            string lawType;
+            string lawSupp;
+            string lawMinor;
+
+            string majOpinWriter;
+            string majOpinAssigner;
+
+            string splitVote;
+            string majVotes;
+            string minVotes;
+
+            string justice;
+            string justiceName;
+
+            string vote;
+            string opinion;
+            string direction;
+            string majority;
+
+            string firstAgreement;
+            string secondAgreement;
+
+            getline(inSS, caseID, ',');
+            getline(inSS, docketID, ',');
+            getline(inSS, caseIssueID, ',');
+            getline(inSS, voterID, ',');
+
+            getline(inSS, dateDecision, ',');
+            getline(inSS, decisionType, ',');
+
+            getline(inSS, usCite, ',');
+            getline(inSS, sctCite, ',');
+            getline(inSS, ledCite, ',');
+            getline(inSS, lexisCite, ',');
+
+            getline(inSS, term, ',');
+            getline(inSS, naturalCourt, ',');
+            getline(inSS, chief, ',');
+            getline(inSS, docket, ',');
+
+            // check whether case name has commas
+            int pos = line.find('\"');
+            if (pos == -1) {
+                // use comma as delimiter
+                getline(inSS, caseName, ',');
+            } else {
+                // capture case name with quotations as delimiters
+                inSS.ignore(1);
+                getline(inSS, caseName, '\"');
+                inSS.ignore(1);
             }
 
-            // print out justice and ID
-            //cout << dataline[53] << " " << dataline[54] << endl;
+            getline(inSS, dateArgument, ',');
+            getline(inSS, dateRearg, ',');
+
+            getline(inSS, petitioner, ',');
+            getline(inSS, petitionerState, ',');
+            getline(inSS, respondent, ',');
+            getline(inSS, respondentState, ',');
+
+            getline(inSS, jurisdiction, ',');
+            getline(inSS, adminAction, ',');
+            getline(inSS, adminActionState, ',');
+
+            getline(inSS, threeJudgeFdc, ',');
+            getline(inSS, caseOrigin, ',');
+            getline(inSS, caseOriginState, ',');
+
+            getline(inSS, caseSource, ',');
+            getline(inSS, caseSourceState, ',');
+
+            getline(inSS, lcDisagreement, ',');
+            getline(inSS, certReason, ',');
+
+            getline(inSS, lcDisposition, ',');
+            getline(inSS, lcDispositionDirection, ',');
+            getline(inSS, declarationUncon, ',');
+            getline(inSS, caseDisposition, ',');
+            getline(inSS, caseDispositionUnusual, ',');
+
+            getline(inSS, partyWinning, ',');
+            getline(inSS, precedentAlteration, ',');
+            getline(inSS, voteUnclear, ',');
+
+            getline(inSS, issue, ',');
+            getline(inSS, issueArea, ',');
+
+            getline(inSS, decisionDirection, ',');
+            getline(inSS, decisionDirectionDissent, ',');
+            getline(inSS, authorityDecision1, ',');
+            getline(inSS, authorityDecision2, ',');
+
+            getline(inSS, lawType, ',');
+            getline(inSS, lawSupp, ',');
+            getline(inSS, lawMinor, ',');
+
+            getline(inSS, majOpinWriter, ',');
+            getline(inSS, majOpinAssigner, ',');
+
+            getline(inSS, splitVote, ',');
+            getline(inSS, majVotes, ',');
+            getline(inSS, minVotes, ',');
+
+            getline(inSS, justice, ',');
+            getline(inSS, justiceName, ',');
+
+            getline(inSS, vote, ',');
+            getline(inSS, opinion, ',');
+            getline(inSS, direction, ',');
+            getline(inSS, majority, ',');
+
+            getline(inSS, firstAgreement, ',');
+            getline(inSS, secondAgreement, '\r');
+
+            cout << justice << " " << justiceName << endl;
         }
     }
 
